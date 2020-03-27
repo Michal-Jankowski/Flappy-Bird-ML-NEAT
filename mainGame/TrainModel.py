@@ -1,5 +1,5 @@
 import neat
-from modules.gameManager import GameAppManager
+from modules.GameAppManager import GameAppManager
 
 
 # mainGame method of train file

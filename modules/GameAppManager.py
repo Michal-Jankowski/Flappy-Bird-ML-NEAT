@@ -2,23 +2,24 @@ import random, sys, os, pygame
 import numpy as np
 
 from pygame.locals import *
-from configes.config import *
-from modules.Base import Base
-from modules.Bird import Bird
+from configes.Config import *
 from modules.Pipe import Pipe, Pipes
+from modules.Bird import Bird
+from modules.Base import Base
 
 
 class GameAppManager(object):
 
     def __init__(self, genomes, config):
-        global SCREEN, GAMECLOCK
+        global SCREEN, FPSCLOCK
 
         pygame.init()
-        GAMECLOCK = pygame.time.Clock()
+        FPSCLOCK = pygame.time.Clock()
         SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         pygame.display.set_caption('BIAI FlappyGame')
 
         self.score = 0
+        self.crash_info = []
 
         # Create player
         self.movementInfo = load_all_resources()
@@ -44,6 +45,18 @@ class GameAppManager(object):
                 self.on_render()
 
     def on_loop(self):
+        # neural control of bird move, get value for move
+        for bird in self.birds:
+            bird.flap_bird(self.pipes)
+
+        for index, bird in enumerate(self.birds):
+            if bird.check_crash(self.pipes, self.base.base_X, self.score):
+                self.crash_info.append((bird.crashInfo, bird.genome))
+                del self.birds[index]
+                if len(self.birds) == 0:
+                    bird.specie_died = True
+                    return True
+
         # move base image
         self.base.move(self.birds)
         # move bird (player)
@@ -67,10 +80,10 @@ class GameAppManager(object):
         # update display
         pygame.display.update()
         # increase tick count
-        GAMECLOCK.tick(FPS)
+        FPSCLOCK.tick(FPS)
 
 
-# main method of GameAppManager
+# main method of game
 if __name__ == "__main__":
     game = GameAppManager()
     game.play()

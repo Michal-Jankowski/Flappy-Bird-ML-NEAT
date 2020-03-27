@@ -1,5 +1,6 @@
-import pygame, random
 from itertools import cycle
+
+import pygame
 
 RANDOM_PIPES = True
 
@@ -7,13 +8,13 @@ FPS = 60
 SCREENWIDTH = 512
 SCREENHEIGHT = 512
 SHIFT = [0]  # base shift of image
-
 # amount by which base can maximum shift to left
-PIPEGAPSIZE = 90  # gap between upper and lower part of pipe
-BASEY = SCREENHEIGHT * 0.79
+PIPEGAPSIZE = 80  # gap between upper and lower part of pipe
+BASEY = SCREENHEIGHT * 0.79  # Base image shift value based on screenheight
 # image dictionary
 IMAGES = {}
-
+HITMASKS = {}
+PIPEWIDTH = [0]
 # Player images
 PLAYER = (
     (
@@ -24,14 +25,16 @@ PLAYER = (
 )
 
 # Background image
-BACKGROUND = (
-    '../assets/sprites/background-day.png',
-)
+BACKGROUND = ('../assets/sprites/background-day.png',)
 
 # Pipes image
-PIPE = (
-    '../assets/sprites/pipe-green.png',
-)
+PIPE = ('../assets/sprites/pipe-green.png',)
+
+
+# how maximum can shift the base image to background
+
+def init_shift_info():
+    SHIFT[0] = IMAGES['base'].get_width() - IMAGES['background'].get_width()
 
 
 def load_images():
@@ -39,8 +42,7 @@ def load_images():
     sprite_list = ["base"]
 
     for sprite in sprite_list:
-        IMAGES[sprite] = pygame.image.load(
-            '../assets/sprites/{}.png'.format(sprite)).convert_alpha()
+        IMAGES[sprite] = pygame.image.load('../assets/sprites/{}.png'.format(sprite)).convert_alpha()
 
 
 def init_random_sprites():
@@ -51,11 +53,10 @@ def init_random_sprites():
     IMAGES['player'] = tuple([pygame.image.load(PLAYER[0][i]).convert_alpha() for i in range(3)])
 
     # Choose pipe sprite
-    IMAGES['pipe'] = (
-        pygame.transform.rotate(
-            pygame.image.load(PIPE[0]).convert_alpha(), 180),
-        pygame.image.load(PIPE[0]).convert_alpha(),
-    )
+    IMAGES['pipe'] = (pygame.transform.rotate(pygame.image.load(PIPE[0]).convert_alpha(), 180),
+                      pygame.image.load(PIPE[0]).convert_alpha(),)
+
+
 
 
 def init_movement_info():
@@ -67,11 +68,10 @@ def init_movement_info():
 
     playerx = int(SCREENWIDTH * 0.2)
     playery = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) / 2)
-
+    PIPEWIDTH = int((IMAGES['base'].get_width()))
     base_X = 0
     # amount by which base can maximum shift to left
     baseShift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
-
     # player shm for up-down motion on welcome screen
     playerShmVals = {'val': 0, 'dir': 1}
 
@@ -81,11 +81,32 @@ def init_movement_info():
             'playerIndexGen': playerIndexGen, }
 
 
+def get_Hitmask(image):
+    mask = []
+    for i in range(image.get_width()):
+        mask.append([])
+        for j in range(image.get_height()):
+            mask[i].append(bool(image.get_at((i, j))[3]))
+    return mask
+
+
+# initailize hitmask collision
+
+def ini_Hitmask():
+    HITMASKS['player'] = (get_Hitmask(IMAGES['player'][0]),
+                          get_Hitmask(IMAGES['player'][1]),
+                          get_Hitmask(IMAGES['player'][2]),)
+
+    HITMASKS['pipe'] = (get_Hitmask(IMAGES['pipe'][0]),
+                        get_Hitmask(IMAGES['pipe'][1]),)
+
+
 # run all methods from config to initialize resources
+
 def load_all_resources():
     load_images()
     init_random_sprites()
-    #  how maximum can shift the base image to background
-    SHIFT[0] = IMAGES['base'].get_width() - IMAGES['background'].get_width()
+    ini_Hitmask()
+    init_shift_info()
 
     return init_movement_info()

@@ -1,5 +1,5 @@
 import random
-from configes.config import *
+from configes.Config import *
 
 
 # class for setting properties of pipe
