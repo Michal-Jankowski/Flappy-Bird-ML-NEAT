@@ -61,6 +61,7 @@ class GameAppManager(object):
         self.base.move(self.birds)
         # move bird (player)
         for bird in self.birds:
+            #if bird.timerForBird():
             bird.move()
         # move pipes
         self.pipes.move(self.birds)

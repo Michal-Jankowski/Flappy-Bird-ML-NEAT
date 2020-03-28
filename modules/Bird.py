@@ -29,13 +29,14 @@ class Bird(object):
         self.crashInfo = None
         self.index = 0
         self.distance = 0
-
-        self.y_velocity = -9  # player's velocity along Y, default same as playerFlapped
-        self.max_y_velocity = 10  # max vel along Y, max descend speed
+        self.start_ticks = pygame.time.get_ticks()
+        self.y_velocity = -10  # player's velocity along Y, default same as playerFlapped
+        self.max_y_velocity = 12  # max vel along Y, max descend speed
         self.gravity = 1  # players downward accleration
-        self.flap_speed = -6  # players speed on flapping
+        self.flap_speed = -10  # players speed on flapping
         self.energy_used = 0
 
+        self.can_flap = True
         self.ground_collision = False
         self.pipe_collision = False
         self.collision = False
@@ -119,9 +120,21 @@ class Bird(object):
 
         if self.collision:
             # Values returned to species.py
-            self.crashInfo = self.crash_info(pipes,score)
+            self.crashInfo = self.crash_info(pipes, score)
             return True
         else:
             return False
 
-
+    def timerForBird(self):
+        seconds = (pygame.time.get_ticks() - self.start_ticks) / 1000
+        if not self.flapped:
+            if seconds >= 0.017:
+                self.can_flap = True
+                self.start_ticks = pygame.time.get_ticks()
+                return True
+            else:
+                #self.can_flap = False
+                return False
+        else:
+            #self.can_flap = False
+            return True

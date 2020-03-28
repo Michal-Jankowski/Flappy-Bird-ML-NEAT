@@ -9,7 +9,7 @@ SCREENWIDTH = 512
 SCREENHEIGHT = 512
 SHIFT = [0]  # base shift of image
 # amount by which base can maximum shift to left
-PIPEGAPSIZE = 80  # gap between upper and lower part of pipe
+PIPEGAPSIZE = 110  # gap between upper and lower part of pipe
 BASEY = SCREENHEIGHT * 0.79  # Base image shift value based on screenheight
 # image dictionary
 IMAGES = {}
