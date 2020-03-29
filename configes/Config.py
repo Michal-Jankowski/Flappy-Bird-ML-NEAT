@@ -38,8 +38,11 @@ def init_shift_info():
 
 
 def load_images():
+    # numbers sprites for score display
+    IMAGES['numbers'] = tuple(
+        [pygame.image.load('../assets/sprites/{}.png'.format(x)).convert_alpha() for x in range(10)])
     # load base image
-    sprite_list = ["base"]
+    sprite_list = ["base", "scores"]
 
     for sprite in sprite_list:
         IMAGES[sprite] = pygame.image.load('../assets/sprites/{}.png'.format(sprite)).convert_alpha()
@@ -55,8 +58,6 @@ def init_random_sprites():
     # Choose pipe sprite
     IMAGES['pipe'] = (pygame.transform.rotate(pygame.image.load(PIPE[0]).convert_alpha(), 180),
                       pygame.image.load(PIPE[0]).convert_alpha(),)
-
-
 
 
 def init_movement_info():
@@ -79,6 +80,29 @@ def init_movement_info():
     return {'playery': playery + playerShmVals['val'],
             'basex': base_X,
             'playerIndexGen': playerIndexGen, }
+
+
+# method that draws score writing and number of passed pipes
+def displayScore(statistics, screen, text=None):
+    try:
+        DigitsNumbers = [int(x) for x in list(str(statistics))]
+        total_Width = 0
+
+        for number in DigitsNumbers:
+            total_Width += IMAGES['numbers'][number].get_width()
+
+        X_offset = (SCREENWIDTH - total_Width) / 2
+
+    except:  # Should catch specific exception this is bad
+        pass
+        print("Info about error")
+
+    if text == "scores":
+
+        for digit in DigitsNumbers:
+            screen.blit(IMAGES['numbers'][digit], (30, 470))
+
+        screen.blit(IMAGES[text], (5, 430))
 
 
 def get_Hitmask(image):

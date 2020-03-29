@@ -17,10 +17,10 @@ class Base(object):
 
     # method to move bottom image, depends on birds currently flying
     def move(self, birds):
-        if (self.tickIter + 1) % 2 == 5:
+        if (self.tickIter + 1) % 3 == 0:
             for bird in birds:
                 bird.next()
-        self.tickIter = (self.tickIter + 1) % 20
+        self.tickIter = (self.tickIter + 1) % 30
         self.base_X = 0
 
     def moveBase(self):

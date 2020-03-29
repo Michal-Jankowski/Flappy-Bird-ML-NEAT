@@ -56,12 +56,25 @@ class GameAppManager(object):
                 if len(self.birds) == 0:
                     bird.specie_died = True
                     return True
-
+# DODANE
+        break_one = break_two = False
+        for bird in self.birds:
+            playerMidPos = bird.x + IMAGES['player'][0].get_width() / 2
+            for pipe in self.pipes.upper:
+                pipeMidPos = pipe['x'] + IMAGES['pipe'][0].get_width() / 2
+                if pipeMidPos <= playerMidPos < pipeMidPos + 4:
+                    self.score += 1
+                    break_one = break_two = True
+                if break_one:
+                    break
+            if break_two:
+                break
+# KONIEC DODANIA
         # move base image
         self.base.move(self.birds)
         # move bird (player)
         for bird in self.birds:
-            #if bird.timerForBird():
+            # if bird.timerForBird():
             bird.move()
         # move pipes
         self.pipes.move(self.birds)
@@ -78,6 +91,11 @@ class GameAppManager(object):
         # draw birds
         for bird in self.birds:
             SCREEN.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
+        # display score
+        displayScore(self.score, SCREEN, text="scores")
+        for bird in self.birds:
+            SCREEN.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
+
         # update display
         pygame.display.update()
         # increase tick count
