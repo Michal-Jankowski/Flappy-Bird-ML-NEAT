@@ -6,12 +6,12 @@ import random
 # Base class to draw bottom base image
 class Base(object):
     VELOCITY = 5
-    PIPEWIDHTSIZE = PIPEWIDTH
+    PIPE_WIDHT_SIZE = PIPEWIDTH
 
     def __init__(self, base_X):
         self.base_X_2 = 0
         self.base_X = base_X
-        self.base_Y = self.PIPEWIDHTSIZE
+        self.base_Y = self.PIPE_WIDHT_SIZE
         self.tickIter = 0
         self.baseShift = SHIFT[0]
 
@@ -27,11 +27,11 @@ class Base(object):
 
         self.base_X -= self.VELOCITY
         self.base_X_2 -= self.VELOCITY
-        if self.base_X + self.PIPEWIDHTSIZE < 0:
-            self.base_X = self.base_X_2 + self.PIPEWIDHTSIZE
+        if self.base_X + self.PIPE_WIDHT_SIZE < 0:
+            self.base_X = self.base_X_2 + self.PIPE_WIDHT_SIZE
 
-        if self.base_X_2 + self.PIPEWIDHTSIZE < 0:
-            self.base_X_2 = self.base_X + self.PIPEWIDHTSIZE
+        if self.base_X_2 + self.PIPE_WIDHT_SIZE < 0:
+            self.base_X_2 = self.base_X + self.PIPE_WIDHT_SIZE
 
     # def draw(self, window):
 

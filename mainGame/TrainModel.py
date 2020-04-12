@@ -1,4 +1,5 @@
 import neat
+import pickle
 from modules.GameAppManager import GameAppManager
 
 
@@ -18,7 +19,9 @@ def main():
     p.add_reporter(neat.StdOutReporter(True))
     # run NEAT based on fitness function and amount of birds
     winner = p.run(eval_genomes, n=50)
-
+    pickle_out = open("best.pickle", "wb")
+    pickle.dump(winner, pickle_out)
+    pickle_out.close()
 
 def eval_genomes(genomes, config):
     idx, genomes = zip(*genomes)
