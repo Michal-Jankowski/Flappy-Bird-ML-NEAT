@@ -67,40 +67,33 @@ def init_movement_info():
     # iterator used to change playerIndex after every 5th iteration
     loopIter = 0
 
-    playerx = int(SCREENWIDTH * 0.2)
-    playery = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) / 2)
+    player_x = int(SCREENWIDTH * 0.2)
+    player_y = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) / 2)
     PIPEWIDTH = int((IMAGES['base'].get_width()))
-    base_X = 0
+    base_x = 0
     # amount by which base can maximum shift to left
-    baseShift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
+    base_shift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
     # player shm for up-down motion on welcome screen
-    playerShmVals = {'val': 0, 'dir': 1}
+    player_move = {'val': 0, 'dir': 1}
 
     # make first flap sound and return values for mainGame
-    return {'playery': playery + playerShmVals['val'],
-            'basex': base_X,
+    return {'playery': player_y + player_move['val'],
+            'basex': base_x,
             'playerIndexGen': playerIndexGen, }
 
 
 # method that draws score writing and number of passed pipes
 def displayScore(statistics, screen, text=None):
-    try:
-        DigitsNumbers = [int(x) for x in list(str(statistics))]
-        total_Width = 0
 
-        for number in DigitsNumbers:
-            total_Width += IMAGES['numbers'][number].get_width()
-
-        X_offset = (SCREENWIDTH - total_Width) / 2
-
-    except:  # Should catch specific exception this is bad
-        pass
-        print("Info about error")
+    digital_numbers = [int(x) for x in list(str(statistics))]
 
     if text == "scores":
+        if len(digital_numbers) == 1:
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (30, 470))
 
-        for digit in DigitsNumbers:
-            screen.blit(IMAGES['numbers'][digit], (30, 470))
+        else:
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (8, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 470))
 
         screen.blit(IMAGES[text], (5, 430))
 
@@ -116,7 +109,7 @@ def get_Hitmask(image):
 
 # initailize hitmask collision
 
-def ini_Hitmask():
+def init_Hitmask():
     HITMASKS['player'] = (get_Hitmask(IMAGES['player'][0]),
                           get_Hitmask(IMAGES['player'][1]),
                           get_Hitmask(IMAGES['player'][2]),)
@@ -130,7 +123,7 @@ def ini_Hitmask():
 def load_all_resources():
     load_images()
     init_random_sprites()
-    ini_Hitmask()
+    init_Hitmask()
     init_shift_info()
 
     return init_movement_info()

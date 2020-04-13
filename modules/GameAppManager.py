@@ -57,20 +57,19 @@ class GameAppManager(object):
                 if len(self.birds) == 0:
                     bird.specie_died = True
                     return True
-# DODANE
         break_one = break_two = False
         for bird in self.birds:
-            playerMidPos = bird.x + IMAGES['player'][0].get_width() / 2
+            player_mid_pos = bird.x + IMAGES['player'][0].get_width() / 2
             for pipe in self.pipes.upper:
-                pipeMidPos = pipe['x'] + IMAGES['pipe'][0].get_width() / 2
-                if pipeMidPos <= playerMidPos < pipeMidPos + 4:
+                pipe_mid_pos = pipe['x'] + IMAGES['pipe'][0].get_width() / 2
+                if pipe_mid_pos <= player_mid_pos < pipe_mid_pos + 4:
                     self.score += 1
                     break_one = break_two = True
                 if break_one:
                     break
             if break_two:
                 break
-# KONIEC DODANIA
+
         # move base image
         self.base.move(self.birds)
         # move bird (player)

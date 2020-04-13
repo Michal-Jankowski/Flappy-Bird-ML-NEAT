@@ -15,7 +15,7 @@ class PipeManager(object):
                       {'x': SCREENWIDTH + 200 + (SCREENWIDTH / 2), 'y': pipeSecond.y_upper}]
 
     def move(self, birds):
-        for upper_pipe, lower_pipe in zip(self.upper, self.lower):
+        for upper_pipe, lower_pipe in zip(self.lower, self.upper):
             lower_pipe['x'] += self.movement_velocity
             upper_pipe['x'] += self.movement_velocity
             for bird in birds:
@@ -23,7 +23,7 @@ class PipeManager(object):
 
         self.update()
 
-    def add(self, pipe):
+    def add(self):
         pipe = Pipe()
         self.lower.append(pipe.get_lower())
         self.upper.append(pipe.get_upper())
@@ -33,8 +33,8 @@ class PipeManager(object):
         self.upper.pop(0)
 
     def update(self):
-        if 0 < self.upper[0]["x"] and 5 > self.upper[0]["x"]:
-            self.add(Pipe())
+        if 0 < self.upper[0]["x"] < 5:
+            self.add()
 
         if -IMAGES["pipe"][0].get_width() > self.upper[0]["x"]:
             self.remove()

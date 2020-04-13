@@ -104,7 +104,7 @@ class Bird(object):
                 self.flapped = True
 
     def crash_info(self, pipes, score):
-        crashInfo = {
+        crash_info = {
             'upperPipes': pipes.upper,
             'lowerPipes': pipes.lower,
             'score': score,
@@ -113,7 +113,7 @@ class Bird(object):
             'network': self.neural_network,
             'genome': self.genome,
         }
-        return crashInfo
+        return crash_info
 
     def check_crash(self, pipes, basex, score):
         self.checkCollision(pipes)
