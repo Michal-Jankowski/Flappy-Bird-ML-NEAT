@@ -14,14 +14,15 @@ def main():
         '../NEAT/config/feedforward-config'
     )
     # set population of bird
-    p = neat.Population(config)
+    population = neat.Population(config)
     # enable output information of  neural network learning progress
-    p.add_reporter(neat.StdOutReporter(True))
+    population.add_reporter(neat.StdOutReporter(True))
     # run NEAT based on fitness function and amount of birds
-    winner = p.run(eval_genomes, n=50)
+    winner = population.run(eval_genomes, n=25)
     pickle_out = open("best.pickle", "wb")
     pickle.dump(winner, pickle_out)
     pickle_out.close()
+
 
 def eval_genomes(genomes, config):
     idx, genomes = zip(*genomes)
