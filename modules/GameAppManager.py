@@ -3,7 +3,8 @@ import numpy as np
 
 from pygame.locals import *
 from configes.Config import *
-from modules.Pipe import Pipe, Pipes
+from modules.Pipe import Pipe
+from modules.PipeManager import PipeManager
 from modules.Bird import Bird
 from modules.Base import Base
 
@@ -26,7 +27,7 @@ class GameAppManager(object):
         self.birds = [Bird(self.movementInfo, genome, config) for genome in genomes]
 
         # Create pipes
-        self.pipes = Pipes(Pipe(), Pipe())
+        self.pipes = PipeManager(Pipe(), Pipe())
 
         # Create base
         self.base = Base(self.movementInfo['basex'])
