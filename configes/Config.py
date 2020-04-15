@@ -4,7 +4,7 @@ import pygame
 
 RANDOM_PIPES = True
 
-FPS = 60
+FPS = 30
 SCREENWIDTH = 512
 SCREENHEIGHT = 512
 SHIFT = [0]  # base shift of image
@@ -14,7 +14,7 @@ BASEY = SCREENHEIGHT * 0.79  # Base image shift value based on screenheight
 # image dictionary
 IMAGES = {}
 HITMASKS = {}
-PIPEWIDTH = [0]
+pipe_width = [0]
 # Player images
 PLAYER = (
     (
@@ -82,34 +82,6 @@ def init_movement_info():
             'playerIndexGen': playerIndexGen, }
 
 
-def oneScore(screen, digital_numbers, text):
-    screen.blit(IMAGES['numbers'][digital_numbers[0]], (30, 470))
-    screen.blit(IMAGES[text], (5, 430))
-
-
-def twoScore(screen, digital_numbers, text):
-    screen.blit(IMAGES['numbers'][digital_numbers[0]], (5, 470))
-    screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 470))
-    screen.blit(IMAGES[text], (5, 430))
-
-
-def threeGeneration(screen, digital_numbers, text):
-    screen.blit(IMAGES['numbers'][digital_numbers[0]], (0, 350))
-    screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 350))
-    screen.blit(IMAGES['numbers'][digital_numbers[2]], (50, 350))
-    screen.blit(IMAGES[text], (5, 330))
-
-
-def twoGeneration(screen, digital_numbers, text):
-    screen.blit(IMAGES['numbers'][digital_numbers[0]], (0, 350))
-    screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 350))
-    screen.blit(IMAGES[text], (5, 330))
-
-
-def oneGeneration(screen, digital_numbers, text):
-    screen.blit(IMAGES['numbers'][digital_numbers[0]], (30, 350))
-    screen.blit(IMAGES[text], (5, 330))
-
 
 # method that draws score writing and number of passed pipes
 def displayGameInformation(statistics, screen, text=None):
@@ -128,27 +100,32 @@ def displayGameInformation(statistics, screen, text=None):
     elif text == "alive":
 
         if len(digital_numbers) == 1:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (30, 350))
-            screen.blit(IMAGES[text], (5, 330))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (100, 470))
+            screen.blit(IMAGES[text], (105, 430))
         elif len(digital_numbers) == 2:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (0, 350))
-            screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 350))
-            screen.blit(IMAGES[text], (5, 330))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (100, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (125, 470))
+            screen.blit(IMAGES[text], (105, 430))
         else:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (5, 350))
-            screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 350))
-            screen.blit(IMAGES['numbers'][digital_numbers[2]], (50, 350))
-            screen.blit(IMAGES[text], (5, 330))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (100, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (125, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[2]], (150, 470))
+            screen.blit(IMAGES[text], (105, 430))
 
     elif text == "gen":
 
         if len(digital_numbers) == 1:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (30, 150))
-            screen.blit(IMAGES[text], (5, 130))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (230, 470))
+            screen.blit(IMAGES[text], (205, 430))
         elif len(digital_numbers) == 2:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (0, 150))
-            screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 150))
-            screen.blit(IMAGES[text], (5, 130))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (200, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (225, 470))
+            screen.blit(IMAGES[text], (205, 430))
+        else:
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (200, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (225, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[2]], (250, 470))
+            screen.blit(IMAGES[text], (205, 430))
 
 
 def get_Hitmask(image):

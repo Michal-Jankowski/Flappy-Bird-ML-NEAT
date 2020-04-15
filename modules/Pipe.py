@@ -9,16 +9,16 @@ class Pipe(object):
         # random.seed() if (RANDOM_PIPES) else random.seed(5)
 
         # y of gap between upper and lower pipe
-        gapY = random.randrange(0, int(BASEY * 0.6 - PIPEGAPSIZE))
-        gapY += int(BASEY * 0.2)
-        pipeHeight = IMAGES['pipe'][0].get_height()
-        pipeX = SCREENWIDTH + 10
-        pipeY_upper = gapY - pipeHeight
-        pipeY_lower = gapY + PIPEGAPSIZE
+        gap_y = random.randrange(0, int(BASEY * 0.6 - PIPEGAPSIZE))
+        gap_y += int(BASEY * 0.2)
+        pipe_height = IMAGES['pipe'][0].get_height()
+        pipe_x = SCREENWIDTH + 10
+        pipe_y_upper = gap_y - pipe_height
+        pipe_y_lower = gap_y + PIPEGAPSIZE
 
-        self.x = pipeX
-        self.y_upper = pipeY_upper
-        self.y_lower = pipeY_lower
+        self.x = pipe_x
+        self.y_upper = pipe_y_upper
+        self.y_lower = pipe_y_lower
 
         # move pipe to left
 

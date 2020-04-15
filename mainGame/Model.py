@@ -6,7 +6,7 @@ statistic_report = neat.StatisticsReporter()
 
 
 # mainGame method of train file
-# configurate NEAT algorithm from file
+# configuration of NEAT algorithm from file
 def main():
     config = neat.config.Config(
         neat.DefaultGenome,
@@ -22,7 +22,7 @@ def main():
     population.add_reporter(statistic_report)
     population.add_reporter(neat.Checkpointer(5))
     # run NEAT based on fitness function and amount of birds
-    winner = population.run(fitness_function, n=150)
+    winner = population.run(fitness_function, n=35)
     pickle_out = open("..//NEAT//pickle_file//best.pickle", "wb")
     pickle.dump(winner, pickle_out)
     pickle_out.close()
@@ -44,8 +44,6 @@ def fitness_function(genomes, config):
         genomes.fitness = -1 if fitness == 0 else fitness
         if top_score < score:
             top_score = score
-
-    # print("Highest Score:", top_score)
 
 
 if __name__ == "__main__":

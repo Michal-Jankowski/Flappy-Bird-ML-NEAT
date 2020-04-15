@@ -12,13 +12,13 @@ from modules.Base import Base
 class GameAppManager(object):
 
     def __init__(self, genomes, config):
-        global SCREEN, FPSCLOCK
 
         pygame.init()
         FPSCLOCK = pygame.time.Clock()
         SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         pygame.display.set_caption('BIAI FlappyGame')
-
+        self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
+        self.fps_clock = pygame.time.Clock()
         self.score = 0
         self.crash_info = []
         self.generation_number = None
@@ -51,7 +51,7 @@ class GameAppManager(object):
             bird.flap_bird(self.pipes)
 
         for index, bird in enumerate(self.birds):
-            if bird.check_crash(self.pipes, self.base.base_X, self.score):
+            if bird.check_crash(self.pipes, self.base.base_x, self.score):
                 self.crash_info.append((bird.crashInfo, bird.genome))
                 del self.birds[index]
                 if len(self.birds) == 0:
@@ -82,27 +82,27 @@ class GameAppManager(object):
     # render method
     def on_render(self):
         # draw background
-        SCREEN.blit(IMAGES['background'], (0, 0))
+        self.screen.blit(IMAGES['background'], (0, 0))
         # draw pipes
-        self.pipes.draw(SCREEN)
+        self.pipes.draw(self.screen)
         # draw base image
-        SCREEN.blit(IMAGES['base'], (self.base.base_X, BASEY))
+        self.screen.blit(IMAGES['base'], (self.base.base_x, BASEY))
         # draw birds
         for bird in self.birds:
-            SCREEN.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
+            self.screen.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
         # display bird generation
-        displayGameInformation(self.generation_number, SCREEN, text="gen")
+        displayGameInformation(self.generation_number, self.screen, text="gen")
         # display alive birds
-        displayGameInformation(len(self.birds), SCREEN, text="alive")
+        displayGameInformation(len(self.birds), self.screen, text="alive")
         # display score
-        displayGameInformation(self.score, SCREEN, text="scores")
+        displayGameInformation(self.score, self.screen, text="scores")
         for bird in self.birds:
-            SCREEN.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
+            self.screen.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
 
         # update display
         pygame.display.update()
         # increase tick count
-        FPSCLOCK.tick(FPS)
+        self.fps_clock.tick(FPS)
 
 
 # main method of game
