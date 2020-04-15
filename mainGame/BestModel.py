@@ -26,7 +26,7 @@ def main():
         neat.DefaultStagnation,
         '../NEAT/config/feedforward-config'
     )
-    pickle_in = open("..//modules//best.pickle", "rb")
+    pickle_in = open("..//NEAT//pickle_file//best.pickle", "rb")
     best_generation = pickle.load(pickle_in)
     pickle_in.close()
     # set population of bird

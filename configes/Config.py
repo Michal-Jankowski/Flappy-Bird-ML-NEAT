@@ -135,7 +135,7 @@ def displayGameInformation(statistics, screen, text=None):
             screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 350))
             screen.blit(IMAGES[text], (5, 330))
         else:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (0, 350))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (5, 350))
             screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 350))
             screen.blit(IMAGES['numbers'][digital_numbers[2]], (50, 350))
             screen.blit(IMAGES[text], (5, 330))

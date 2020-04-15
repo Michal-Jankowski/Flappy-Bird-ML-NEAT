@@ -22,7 +22,7 @@ def main():
     population.add_reporter(statistic_report)
     population.add_reporter(neat.Checkpointer(5))
     # run NEAT based on fitness function and amount of birds
-    winner = population.run(fitness_function, n=2)
+    winner = population.run(fitness_function, n=150)
     pickle_out = open("..//NEAT//pickle_file//best.pickle", "wb")
     pickle.dump(winner, pickle_out)
     pickle_out.close()
@@ -40,7 +40,7 @@ def fitness_function(genomes, config):
         score = result['score']
         distance = result['distance']
 
-        fitness = distance
+        fitness = distance * 0.1 + score * 2000
         genomes.fitness = -1 if fitness == 0 else fitness
         if top_score < score:
             top_score = score
