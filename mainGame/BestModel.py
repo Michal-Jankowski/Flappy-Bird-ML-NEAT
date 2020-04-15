@@ -2,16 +2,19 @@ import neat
 import pickle
 from modules.GameAppManager import GameAppManager
 
+statistic_report = neat.StatisticsReporter()
+
 
 def print_info(game):
     generations_info = game.crash_info
     for row, _ in generations_info:
-        print(row['score'])
+        print("Score: " + str(row['score']))
 
 
 def play_game(best_generation, pickle_in):
     game = GameAppManager([best_generation], pickle_in)
-    game.play()
+    generation_number = len(statistic_report.generation_statistics)
+    game.play(generation_number)
     print_info(game)
 
 
@@ -23,9 +26,15 @@ def main():
         neat.DefaultStagnation,
         '../NEAT/config/feedforward-config'
     )
-    pickle_in = open("best.pickle", "rb")
+    pickle_in = open("..//modules//best.pickle", "rb")
     best_generation = pickle.load(pickle_in)
     pickle_in.close()
+    # set population of bird
+    population = neat.population.Population(config)
+    # enable output information of  neural network learning progress
+    population.add_reporter(neat.StdOutReporter(True))
+    population.add_reporter(statistic_report)
+
     play_game(best_generation, config)
 
 

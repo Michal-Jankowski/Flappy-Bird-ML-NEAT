@@ -1,5 +1,5 @@
-import random, sys, os, pygame
-import numpy as np
+import sys
+
 
 from pygame.locals import *
 from configes.Config import *
@@ -21,7 +21,7 @@ class GameAppManager(object):
 
         self.score = 0
         self.crash_info = []
-
+        self.generation_number = None
         # Create player
         self.movementInfo = load_all_resources()
         self.birds = [Bird(self.movementInfo, genome, config) for genome in genomes]
@@ -32,8 +32,8 @@ class GameAppManager(object):
         # Create base
         self.base = Base(self.movementInfo['basex'])
 
-    def play(self):
-
+    def play(self, generation_number):
+        self.generation_number = generation_number
         while True:
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -55,7 +55,6 @@ class GameAppManager(object):
                 self.crash_info.append((bird.crashInfo, bird.genome))
                 del self.birds[index]
                 if len(self.birds) == 0:
-                    bird.specie_died = True
                     return True
         break_one = break_two = False
         for bird in self.birds:
@@ -91,8 +90,12 @@ class GameAppManager(object):
         # draw birds
         for bird in self.birds:
             SCREEN.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
+        # display bird generation
+        displayGameInformation(self.generation_number, SCREEN, text="gen")
+        # display alive birds
+        displayGameInformation(len(self.birds), SCREEN, text="alive")
         # display score
-        displayScore(self.score, SCREEN, text="scores")
+        displayGameInformation(self.score, SCREEN, text="scores")
         for bird in self.birds:
             SCREEN.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
 
