@@ -91,11 +91,11 @@ class GameAppManager(object):
         for bird in self.birds:
             self.screen.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
         # display bird generation
-        displayGameInformation(self.generation_number, self.screen, text="gen")
+        displayGameInformation(self.generation_number, self.screen, text="generation")
         # display alive birds
         displayGameInformation(len(self.birds), self.screen, text="alive")
         # display score
-        displayGameInformation(self.score, self.screen, text="scores")
+        displayGameInformation(self.score, self.screen, text="score")
         for bird in self.birds:
             self.screen.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
 

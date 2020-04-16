@@ -1,3 +1,5 @@
+import os
+
 import pygame
 from mainGame import Model as train
 from mainGame import BestModel as best
@@ -44,7 +46,7 @@ class Button:
         pygame.draw.rect(window, self.color, (self.x, self.y, self.width, self.height), 0)
 
         if self.text != '':
-            font = pygame.font.SysFont('comicsans', 30)
+            font = pygame.font.Font("../assets/fonts/FlappyBirdy.ttf", 50)
             text = font.render(self.text, 1, (0, 0, 0))
             window.blit(text, (
                 self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
@@ -73,7 +75,7 @@ def main():
     run = True
     train_button = Button((0, 255, 0), 175, 150, 150, 50, "Train")
     best_button = Button((0, 255, 0), 175, 220, 150, 50, "Best")
-    background = Background("..//assets//sprites//background-blue.png", [0, 0])
+    background = Background("../assets/sprites/background-blue.png", [0, 0])
     logo = Logo("../assets/sprites/flappy_bird_logov1.png", [125, 50])
     while run:
         screen.fill([1, 1, 155])
@@ -97,12 +99,12 @@ def main():
                 if train_button.isOver(pos):
                     train_button.color = (255, 0, 0)
                 else:
-                    train_button.color = (0, 255, 0)
+                    train_button.color = (255, 255, 255)
 
                 if best_button.isOver(pos):
                     best_button.color = (255, 0, 0)
                 else:
-                    best_button.color = (0, 255, 0)
+                    best_button.color = (255, 255, 255)
 
 
 if __name__ == "__main__":

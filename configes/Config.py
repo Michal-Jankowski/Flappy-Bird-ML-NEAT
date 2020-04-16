@@ -42,7 +42,7 @@ def load_images():
     IMAGES['numbers'] = tuple(
         [pygame.image.load('../assets/sprites/{}.png'.format(x)).convert_alpha() for x in range(10)])
     # load base image
-    sprite_list = ["base", "scores", "alive", "gen"]
+    sprite_list = ["base", "score", "alive", "generation"]
 
     for sprite in sprite_list:
         IMAGES[sprite] = pygame.image.load('../assets/sprites/{}.png'.format(sprite)).convert_alpha()
@@ -82,50 +82,48 @@ def init_movement_info():
             'playerIndexGen': playerIndexGen, }
 
 
-
 # method that draws score writing and number of passed pipes
 def displayGameInformation(statistics, screen, text=None):
-
     digital_numbers = [int(x) for x in list(str(statistics))]
 
-    if text == "scores":
+    if text == "score":
 
         if len(digital_numbers) == 1:
             screen.blit(IMAGES['numbers'][digital_numbers[0]], (30, 470))
-            screen.blit(IMAGES[text], (5, 430))
+            screen.blit(IMAGES[text], (5, 435))
         else:
             screen.blit(IMAGES['numbers'][digital_numbers[0]], (5, 470))
             screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 470))
-            screen.blit(IMAGES[text], (5, 430))
+            screen.blit(IMAGES[text], (5, 435))
     elif text == "alive":
 
         if len(digital_numbers) == 1:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (100, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (120, 470))
             screen.blit(IMAGES[text], (105, 430))
         elif len(digital_numbers) == 2:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (100, 470))
-            screen.blit(IMAGES['numbers'][digital_numbers[1]], (125, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (120, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (145, 470))
             screen.blit(IMAGES[text], (105, 430))
         else:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (100, 470))
-            screen.blit(IMAGES['numbers'][digital_numbers[1]], (125, 470))
-            screen.blit(IMAGES['numbers'][digital_numbers[2]], (150, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (95, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (120, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[2]], (145, 470))
             screen.blit(IMAGES[text], (105, 430))
 
-    elif text == "gen":
+    elif text == "generation":
 
         if len(digital_numbers) == 1:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (230, 470))
-            screen.blit(IMAGES[text], (205, 430))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (250, 470))
+            screen.blit(IMAGES[text], (195, 430))
         elif len(digital_numbers) == 2:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (200, 470))
-            screen.blit(IMAGES['numbers'][digital_numbers[1]], (225, 470))
-            screen.blit(IMAGES[text], (205, 430))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (250, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (275, 470))
+            screen.blit(IMAGES[text], (195, 430))
         else:
-            screen.blit(IMAGES['numbers'][digital_numbers[0]], (200, 470))
-            screen.blit(IMAGES['numbers'][digital_numbers[1]], (225, 470))
-            screen.blit(IMAGES['numbers'][digital_numbers[2]], (250, 470))
-            screen.blit(IMAGES[text], (205, 430))
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (225, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (250, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[2]], (275, 470))
+            screen.blit(IMAGES[text], (195, 430))
 
 
 def get_Hitmask(image):
