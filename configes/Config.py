@@ -34,7 +34,9 @@ PIPE = ('../assets/sprites/pipe-green.png',)
 # how maximum can shift the base image to background
 
 def init_shift_info():
-    SHIFT[0] = IMAGES['base'].get_width() - IMAGES['background'].get_width()
+    val1 = IMAGES['base'].get_width()
+    val2 = IMAGES['background'].get_width()
+    SHIFT[0] = val1 - val2
 
 
 def load_images():
@@ -70,7 +72,7 @@ def init_movement_info():
     player_x = int(SCREENWIDTH * 0.2)
     player_y = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) / 2)
     PIPEWIDTH = int((IMAGES['base'].get_width()))
-    base_x = 0
+    base_x = 50
     # amount by which base can maximum shift to left
     base_shift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
     # player shm for up-down motion on welcome screen
@@ -153,5 +155,4 @@ def load_all_resources():
     init_random_sprites()
     init_Hitmask()
     init_shift_info()
-
     return init_movement_info()

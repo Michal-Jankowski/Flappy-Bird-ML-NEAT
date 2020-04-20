@@ -19,7 +19,7 @@ class Base(object):
             for bird in birds:
                 bird.next()
         self.tick_iteration = (self.tick_iteration + 1) % 30
-        self.base_x = 0
+        self.base_x = -((-self.base_x + 5) % self.baseShift)
 
     def moveBase(self):
 
