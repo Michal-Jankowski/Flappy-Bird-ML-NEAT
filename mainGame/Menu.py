@@ -60,13 +60,13 @@ class Button:
         return False
 
 
-def redrawWindow(train_button, best_button):
+def redrawWindow(train_button, best_button, end_button):
     train_button.draw(screen, (0, 0, 0))
     best_button.draw(screen, (0, 0, 0))
+    end_button.draw(screen, (0, 0, 0))
 
 
-def quitGame(run):
-    run = False
+def quitGame():
     pygame.quit()
     quit()
 
@@ -75,13 +75,14 @@ def main():
     run = True
     train_button = Button((0, 255, 0), 175, 150, 150, 50, "Train")
     best_button = Button((0, 255, 0), 175, 220, 150, 50, "Best")
+    end_button = Button((0, 255, 0), 175, 290, 150, 50, "Quit")
     background = Background("../assets/sprites/background-blue.png", [0, 0])
     logo = Logo("../assets/sprites/flappy_bird_logov1.png", [125, 50])
     while run:
         screen.fill([1, 1, 155])
         screen.blit(background.image, background.rect)
         screen.blit(logo.image, logo.rect)
-        redrawWindow(train_button, best_button)
+        redrawWindow(train_button, best_button, end_button)
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -95,6 +96,10 @@ def main():
                 if best_button.isOver(pos):
                     best.main()
 
+                if end_button.isOver(pos):
+                    run = False
+                    quitGame()
+
             if event.type == pygame.MOUSEMOTION:
                 if train_button.isOver(pos):
                     train_button.color = (255, 0, 0)
@@ -105,6 +110,11 @@ def main():
                     best_button.color = (255, 0, 0)
                 else:
                     best_button.color = (255, 255, 255)
+
+                if end_button.isOver(pos):
+                    end_button.color = (255, 0, 0)
+                else:
+                    end_button.color = (255, 255, 255)
 
 
 if __name__ == "__main__":

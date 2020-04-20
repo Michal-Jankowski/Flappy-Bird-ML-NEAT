@@ -14,14 +14,12 @@ class GameAppManager(object):
     def __init__(self, genomes, config):
 
         pygame.init()
-        FPSCLOCK = pygame.time.Clock()
-        SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         pygame.display.set_caption('BIAI FlappyGame')
         self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
         self.fps_clock = pygame.time.Clock()
         self.score = 0
         self.crash_info = []
-        self.generation_number = None
+        self.generation_number = 0
         # Create player
         self.movementInfo = load_all_resources()
         self.birds = [Bird(self.movementInfo, genome, config) for genome in genomes]
@@ -91,11 +89,11 @@ class GameAppManager(object):
         for bird in self.birds:
             self.screen.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
         # display bird generation
-        displayGameInformation(self.generation_number, self.screen, text="generation")
+        display_game_information(self.generation_number, self.screen, text="generation")
         # display alive birds
-        displayGameInformation(len(self.birds), self.screen, text="alive")
+        display_game_information(len(self.birds), self.screen, text="alive")
         # display score
-        displayGameInformation(self.score, self.screen, text="score")
+        display_game_information(self.score, self.screen, text="score")
         for bird in self.birds:
             self.screen.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
 

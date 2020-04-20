@@ -9,6 +9,7 @@ class Pipe(object):
         # random.seed() if (RANDOM_PIPES) else random.seed(5)
 
         # y of gap between upper and lower pipe
+        self.x_velocity = None
         gap_y = random.randrange(0, int(BASEY * 0.6 - PIPEGAPSIZE))
         gap_y += int(BASEY * 0.2)
         pipe_height = IMAGES['pipe'][0].get_height()

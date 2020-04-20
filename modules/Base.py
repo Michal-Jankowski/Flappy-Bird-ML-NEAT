@@ -31,7 +31,3 @@ class Base(object):
         if self.base_X_2 + self.pipe_width_size < 0:
             self.base_X_2 = self.base_x + self.pipe_width_size
 
-    # def draw(self, window):
-
-    #   window.blit(self.PIPE[0], (self.base_X, self.base_Y))
-    #   window.blit(self.PIPE[0], (self.base_X, self.base_Y))

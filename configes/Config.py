@@ -4,7 +4,7 @@ import pygame
 
 RANDOM_PIPES = True
 
-FPS = 30
+FPS = 5000
 SCREENWIDTH = 512
 SCREENHEIGHT = 512
 SHIFT = [0]  # base shift of image
@@ -64,28 +64,21 @@ def init_random_sprites():
 
 def init_movement_info():
     # index of player to blit on screen
-    playerIndex = 0
-    playerIndexGen = cycle([0, 1, 2, 1])
+    player_index_gen = cycle([0, 1, 2, 1])
     # iterator used to change playerIndex after every 5th iteration
-    loopIter = 0
-
-    player_x = int(SCREENWIDTH * 0.2)
     player_y = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) / 2)
-    PIPEWIDTH = int((IMAGES['base'].get_width()))
     base_x = 50
-    # amount by which base can maximum shift to left
-    base_shift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
     # player shm for up-down motion on welcome screen
     player_move = {'val': 0, 'dir': 1}
 
     # make first flap sound and return values for mainGame
     return {'playery': player_y + player_move['val'],
             'basex': base_x,
-            'playerIndexGen': playerIndexGen, }
+            'playerIndexGen': player_index_gen, }
 
 
 # method that draws score writing and number of passed pipes
-def displayGameInformation(statistics, screen, text=None):
+def display_game_information(statistics, screen, text=None):
     digital_numbers = [int(x) for x in list(str(statistics))]
 
     if text == "score":
@@ -93,10 +86,16 @@ def displayGameInformation(statistics, screen, text=None):
         if len(digital_numbers) == 1:
             screen.blit(IMAGES['numbers'][digital_numbers[0]], (30, 470))
             screen.blit(IMAGES[text], (5, 435))
-        else:
+        elif len(digital_numbers) == 2:
             screen.blit(IMAGES['numbers'][digital_numbers[0]], (5, 470))
             screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 470))
             screen.blit(IMAGES[text], (5, 435))
+        else:
+            screen.blit(IMAGES['numbers'][digital_numbers[0]], (5, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[1]], (30, 470))
+            screen.blit(IMAGES['numbers'][digital_numbers[2]], (55, 470))
+            screen.blit(IMAGES[text], (5, 430))
+
     elif text == "alive":
 
         if len(digital_numbers) == 1:

@@ -2,12 +2,11 @@ import neat
 import pickle
 from modules.GameAppManager import GameAppManager
 
-statistic_report = neat.StatisticsReporter()
-
 
 # mainGame method of train file
 # configuration of NEAT algorithm from file
 def main():
+    global statistic_report
     config = neat.config.Config(
         neat.DefaultGenome,
         neat.DefaultReproduction,
@@ -15,6 +14,7 @@ def main():
         neat.DefaultStagnation,
         '../NEAT/config/feedforward-config'
     )
+    statistic_report = neat.StatisticsReporter()
     # set population of bird
     population = neat.population.Population(config)
     # enable output information of  neural network learning progress
@@ -22,7 +22,7 @@ def main():
     population.add_reporter(statistic_report)
     population.add_reporter(neat.Checkpointer(5))
     # run NEAT based on fitness function and amount of birds
-    winner = population.run(fitness_function, n=35)
+    winner = population.run(fitness_function, n=5)
     pickle_out = open("..//NEAT//pickle_file//best.pickle", "wb")
     pickle.dump(winner, pickle_out)
     pickle_out.close()
@@ -40,7 +40,7 @@ def fitness_function(genomes, config):
         score = result['score']
         distance = result['distance']
 
-        fitness = distance * 0.1 + score * 2000
+        fitness = score
         genomes.fitness = -1 if fitness == 0 else fitness
         if top_score < score:
             top_score = score
