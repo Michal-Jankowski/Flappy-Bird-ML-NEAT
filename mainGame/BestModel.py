@@ -13,7 +13,7 @@ def print_info(game):
 
 def play_game(best_generation, pickle_in):
     game = GameAppManager([best_generation], pickle_in)
-    generation_number = len(statistic_report.generation_statistics)
+    generation_number = best_generation.generation
     game.play(generation_number)
     print_info(game)
 

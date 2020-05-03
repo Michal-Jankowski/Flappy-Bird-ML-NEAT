@@ -3,6 +3,7 @@ import os
 import pygame
 from mainGame import Model as train
 from mainGame import BestModel as best
+from mainGame import Checkpoint as checkpoint
 
 # window size
 pygame.init()
@@ -60,10 +61,11 @@ class Button:
         return False
 
 
-def redrawWindow(train_button, best_button, end_button):
+def redrawWindow(train_button, best_button, end_button, checkpoint_button):
     train_button.draw(screen, (0, 0, 0))
     best_button.draw(screen, (0, 0, 0))
     end_button.draw(screen, (0, 0, 0))
+    checkpoint_button.draw(screen, (0, 0, 0))
 
 
 def quitGame():
@@ -73,22 +75,23 @@ def quitGame():
 
 def main():
     run = True
-    train_button = Button((0, 255, 0), 175, 150, 150, 50, "Train")
-    best_button = Button((0, 255, 0), 175, 220, 150, 50, "Best")
-    end_button = Button((0, 255, 0), 175, 290, 150, 50, "Quit")
+    checkpoint_button = Button((0, 255, 0), 175, 100, 150, 50, "Checkpoint")
+    train_button = Button((0, 255, 0), 175, 170, 150, 50, "Train")
+    best_button = Button((0, 255, 0), 175, 240, 150, 50, "Best")
+    end_button = Button((0, 255, 0), 175, 310, 150, 50, "Quit")
     background = Background("../assets/sprites/background-blue.png", [0, 0])
-    logo = Logo("../assets/sprites/flappy_bird_logov1.png", [125, 50])
+    logo = Logo("../assets/sprites/flappy_bird_logov1.png", [125, 10])
     while run:
         screen.fill([1, 1, 155])
         screen.blit(background.image, background.rect)
         screen.blit(logo.image, logo.rect)
-        redrawWindow(train_button, best_button, end_button)
+        redrawWindow(train_button, best_button, end_button, checkpoint_button)
         pygame.display.update()
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == pygame.QUIT:
-                quitGame(run)
+                quitGame()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if train_button.isOver(pos):
                     train.main()
@@ -99,6 +102,9 @@ def main():
                 if end_button.isOver(pos):
                     run = False
                     quitGame()
+
+                if checkpoint_button.isOver(pos):
+                    checkpoint.main()
 
             if event.type == pygame.MOUSEMOTION:
                 if train_button.isOver(pos):
@@ -115,6 +121,11 @@ def main():
                     end_button.color = (255, 0, 0)
                 else:
                     end_button.color = (255, 255, 255)
+
+                if checkpoint_button.isOver(pos):
+                    checkpoint_button.color = (255, 0, 0)
+                else:
+                    checkpoint_button.color = (255, 255, 255)
 
 
 if __name__ == "__main__":

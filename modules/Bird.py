@@ -2,18 +2,18 @@ import neat
 from configes.Config import *
 
 
-def pixelPerfectCollision(rect1, rect2, hitmask1, hitmask2):
-    rect = rect1.clip(rect2)
+def pixelPerfectCollision(rectangle_1, rectangle_2, hitmask_1, hitmask_2):
+    rect = rectangle_1.clip(rectangle_2)
 
     if rect.width == 0 or rect.height == 0:
         return False
 
-    x1, y1 = rect.x - rect1.x, rect.y - rect1.y
-    x2, y2 = rect.x - rect2.x, rect.y - rect2.y
+    x1, y1 = rect.x - rectangle_1.x, rect.y - rectangle_1.y
+    x2, y2 = rect.x - rectangle_2.x, rect.y - rectangle_2.y
 
     for x in range(rect.width):
         for y in range(rect.height):
-            if hitmask1[x1 + x][y1 + y] and hitmask2[x2 + x][y2 + y]:
+            if hitmask_1[x1 + x][y1 + y] and hitmask_2[x2 + x][y2 + y]:
                 return True
     return False
 

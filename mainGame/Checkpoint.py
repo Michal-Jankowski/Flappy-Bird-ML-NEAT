@@ -6,31 +6,24 @@ from modules.GameAppManager import GameAppManager
 # mainGame method of train file
 # configuration of NEAT algorithm from file
 def main():
-    global statistic_report
-    config = neat.config.Config(
-        neat.DefaultGenome,
-        neat.DefaultReproduction,
-        neat.DefaultSpeciesSet,
-        neat.DefaultStagnation,
-        '../NEAT/config/feedforward-config'
-    )
-    statistic_report = neat.StatisticsReporter()
-    # set population of bird
-    population = neat.population.Population(config)
+    global restore
+    # restore saved checkpoint
+    restore = neat.Checkpointer.restore_checkpoint("../NEAT/checkpoints_file/checkpoint")
     # enable output information of  neural network learning progress
-    population.add_reporter(neat.StdOutReporter(True))
-    population.add_reporter(statistic_report)
-    population.add_reporter(neat.Checkpointer(5))
+    statistic_report = neat.StatisticsReporter()
+    restore.add_reporter(neat.StdOutReporter(True))
+    restore.add_reporter(statistic_report)
+    restore.add_reporter(neat.Checkpointer(5))
+
     # run NEAT based on fitness function and amount of birds
-    winner = population.run(fitness_function, n=79)
-    winner.generation = len(statistic_report.generation_statistics)
+    winner = restore.run(fitness_function, n=20)
     pickle_out = open("..//NEAT//pickle_file//best.pickle", "wb")
     pickle.dump(winner, pickle_out)
     pickle_out.close()
 
 
 def fitness_function(genomes, config):
-    generation_number = len(statistic_report.generation_statistics)
+    generation_number = restore.generation
     idx, genomes = zip(*genomes)
     game = GameAppManager(genomes, config)
     game.play(generation_number)
