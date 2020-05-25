@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2527cef5-163b-4b16-a345-9ea71b9d2e08" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEAT/checkpoints_file/checkpoint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/NEAT/pickle_file/best.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/NEAT/pickle_file/best.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configes/Config.py" beforeDir="false" afterPath="$PROJECT_DIR$/configes/Config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/Pipe.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/Pipe.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,22 +107,46 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state width="1837" height="295" key="GridCell.Tab.0.bottom" timestamp="1588531605382">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state x="264" y="345" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590070146376">
+      <screen x="64" y="0" width="1856" height="1080" />
     </state>
-    <state width="1837" height="295" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1588531605382" />
-    <state width="1837" height="295" key="GridCell.Tab.0.center" timestamp="1588531605382">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state x="264" y="345" key="#com.intellij.fileTypes.FileTypeChooser/64.0.1856.1080@64.0.1856.1080" timestamp="1590070146376" />
+    <state x="384" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590367759368">
+      <screen x="64" y="0" width="1856" height="1080" />
     </state>
-    <state width="1837" height="295" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1588531605382" />
-    <state width="1837" height="295" key="GridCell.Tab.0.left" timestamp="1588531605382">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state x="384" y="287" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/64.0.1856.1080@64.0.1856.1080" timestamp="1590367759368" />
+    <state width="1142" height="472" key="GridCell.Tab.0.bottom" timestamp="1590367767129">
+      <screen x="64" y="0" width="1856" height="1080" />
     </state>
-    <state width="1837" height="295" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1588531605382" />
-    <state width="1837" height="295" key="GridCell.Tab.0.right" timestamp="1588531605382">
-      <screen x="62" y="0" width="1858" height="1080" />
+    <state width="1837" height="295" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1588611569391" />
+    <state width="1142" height="472" key="GridCell.Tab.0.bottom/64.0.1856.1080@64.0.1856.1080" timestamp="1590367767129" />
+    <state width="1142" height="472" key="GridCell.Tab.0.center" timestamp="1590367767129">
+      <screen x="64" y="0" width="1856" height="1080" />
     </state>
-    <state width="1837" height="295" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1588531605382" />
+    <state width="1837" height="295" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1588611569391" />
+    <state width="1142" height="472" key="GridCell.Tab.0.center/64.0.1856.1080@64.0.1856.1080" timestamp="1590367767129" />
+    <state width="1142" height="472" key="GridCell.Tab.0.left" timestamp="1590367767129">
+      <screen x="64" y="0" width="1856" height="1080" />
+    </state>
+    <state width="1837" height="295" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1588611569391" />
+    <state width="1142" height="472" key="GridCell.Tab.0.left/64.0.1856.1080@64.0.1856.1080" timestamp="1590367767129" />
+    <state width="1142" height="472" key="GridCell.Tab.0.right" timestamp="1590367767129">
+      <screen x="64" y="0" width="1856" height="1080" />
+    </state>
+    <state width="1837" height="295" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1588611569391" />
+    <state width="1142" height="472" key="GridCell.Tab.0.right/64.0.1856.1080@64.0.1856.1080" timestamp="1590367767129" />
   </component>
 </project>

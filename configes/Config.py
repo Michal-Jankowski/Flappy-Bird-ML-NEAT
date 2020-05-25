@@ -4,7 +4,7 @@ import pygame
 
 RANDOM_PIPES = True
 
-FPS = 60
+FPS = 50
 SCREENWIDTH = 512
 SCREENHEIGHT = 512
 SHIFT = [0]  # base shift of image
