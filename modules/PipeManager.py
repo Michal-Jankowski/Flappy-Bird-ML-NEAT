@@ -18,8 +18,6 @@ class PipeManager(object):
         for upper_pipe, lower_pipe in zip(self.lower, self.upper):
             lower_pipe['x'] += self.movement_velocity
             upper_pipe['x'] += self.movement_velocity
-            for bird in birds:
-                bird.distance += self.movement_velocity
 
         self.update()
 

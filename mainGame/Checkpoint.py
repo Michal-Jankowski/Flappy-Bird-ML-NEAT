@@ -32,7 +32,6 @@ def fitness_function(genomes, config):
     for result, genomes in results:
 
         score = result['score']
-        distance = result['distance']
 
         fitness = score
         genomes.fitness = -1 if fitness == 0 else fitness

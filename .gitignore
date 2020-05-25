@@ -144,3 +144,4 @@ cython_debug/
 /modules/__pycache__/Pipe.cpython-37.pyc
 /.idea/misc.xml
 /.idea/FlappyBird.iml
+/.idea/workspace.xml

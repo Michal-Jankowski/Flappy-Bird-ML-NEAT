@@ -2,7 +2,8 @@ import neat
 from configes.Config import *
 
 
-def pixelPerfectCollision(rectangle_1, rectangle_2, hitmask_1, hitmask_2):
+# check collision form evert bir with pipes and ground
+def checkCollision(rectangle_1, rectangle_2, hitmask_1, hitmask_2):
     rect = rectangle_1.clip(rectangle_2)
 
     if rect.width == 0 or rect.height == 0:
@@ -11,16 +12,16 @@ def pixelPerfectCollision(rectangle_1, rectangle_2, hitmask_1, hitmask_2):
     x1, y1 = rect.x - rectangle_1.x, rect.y - rectangle_1.y
     x2, y2 = rect.x - rectangle_2.x, rect.y - rectangle_2.y
 
-    for x in range(rect.width):
-        for y in range(rect.height):
-            if hitmask_1[x1 + x][y1 + y] and hitmask_2[x2 + x][y2 + y]:
+    for i in range(rect.width):
+        for j in range(rect.height):
+            if hitmask_1[x1 + i][y1 + j] and hitmask_2[x2 + i][y2 + j]:
                 return True
     return False
 
 
 class Bird(object):
     def __init__(self, player_index_gen, genome, config):
-        # select random player sprites
+        # select bird sprite from config
         self.playerIndexGen = player_index_gen['playerIndexGen']
         self.x, self.y = int(SCREENWIDTH * 0.2), player_index_gen['playery']
 
@@ -28,12 +29,11 @@ class Bird(object):
         self.neural_network = neat.nn.FeedForwardNetwork.create(genome, config)
         self.crashInfo = None
         self.index = 0
-        self.distance = 0
         self.start_ticks = pygame.time.get_ticks()
-        self.y_velocity = -10  # player's velocity along Y, default same as playerFlapped
-        self.max_y_velocity = 12  # max vel along Y, max descend speed
-        self.gravity = 1  # players downward accleration
-        self.flap_speed = -10  # players speed on flapping
+        self.y_velocity = -10  # bird's velocity along Y
+        self.max_y_velocity = 12  # max Y velocity,  maximum descend speed
+        self.gravity = 1  # players downoard accleration
+        self.flap_speed = -10  # player's speed on flapping
         self.energy_used = 0
 
         self.can_flap = True
@@ -55,7 +55,7 @@ class Bird(object):
 
     def checkCollision(self, pipes):
         player = {'w': IMAGES['player'][0].get_width(), 'h': IMAGES['player'][0].get_height()}
-        # if player crashes into ground
+        # if bird crashes into ground
         if self.y + player['h'] >= BASEY - 1:
             self.ground_collision = True
         else:
@@ -75,8 +75,8 @@ class Bird(object):
                 lHitmask = HITMASKS['pipe'][1]
 
                 # if bird collided with upipe or lpipe
-                uCollide = pixelPerfectCollision(playerRect, uPipeRect, pHitMask, uHitmask)
-                lCollide = pixelPerfectCollision(playerRect, lPipeRect, pHitMask, lHitmask)
+                uCollide = checkCollision(playerRect, uPipeRect, pHitMask, uHitmask)
+                lCollide = checkCollision(playerRect, lPipeRect, pHitMask, lHitmask)
 
                 if uCollide or lCollide:
                     self.pipe_collision = True
@@ -103,24 +103,23 @@ class Bird(object):
                 self.y_velocity = self.flap_speed
                 self.flapped = True
 
-    def crash_info(self, pipes, score):
+    def crash_info(self, pipes, score, generation):
         crash_info = {
             'upperPipes': pipes.upper,
             'lowerPipes': pipes.lower,
+            'generation': generation,
             'score': score,
-            'distance': self.distance * -1,
-            'energy': self.energy_used,
             'network': self.neural_network,
             'genome': self.genome,
         }
         return crash_info
 
-    def check_crash(self, pipes, basex, score):
+    def check_crash(self, pipes, score, generation):
         self.checkCollision(pipes)
 
         if self.collision:
-            # Values returned to species.py
-            self.crashInfo = self.crash_info(pipes, score)
+            # Values returned to NEAT algorithm
+            self.crashInfo = self.crash_info(pipes, score, generation)
             return True
         else:
             return False
@@ -133,9 +132,8 @@ class Bird(object):
                 self.start_ticks = pygame.time.get_ticks()
                 return True
             else:
-                #self.can_flap = False
+                # can_flap = False
                 return False
         else:
-            #self.can_flap = False
+            # can_flap = True
             return True
-

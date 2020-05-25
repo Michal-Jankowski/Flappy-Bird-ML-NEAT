@@ -49,7 +49,7 @@ class GameAppManager(object):
             bird.flap_bird(self.pipes)
 
         for index, bird in enumerate(self.birds):
-            if bird.check_crash(self.pipes, self.base.base_x, self.score):
+            if bird.check_crash(self.pipes, self.score, self.generation_number):
                 self.crash_info.append((bird.crashInfo, bird.genome))
                 del self.birds[index]
                 if len(self.birds) == 0:
