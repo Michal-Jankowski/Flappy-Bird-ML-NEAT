@@ -3,12 +3,12 @@ fitness_criterion      = max
 fitness_threshold      = 100
 no_fitness_termination = True
 pop_size               = 50
-reset_on_extinction    = False
+reset_on_extinction    = True
 
 [DefaultGenome]
 # node activation options
 activation_default      = sigmoid
-activation_mutate_rate  = 0.025
+activation_mutate_rate  = 0.125
 activation_options      = relu
 
 # node aggregation options
@@ -73,7 +73,7 @@ compatibility_threshold = 3.0
 [DefaultStagnation]
 species_fitness_func = max
 max_stagnation       = 20
-species_elitism      = 2
+species_elitism      = 0
 
 [DefaultReproduction]
 elitism            = 2

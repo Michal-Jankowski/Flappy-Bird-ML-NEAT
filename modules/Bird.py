@@ -89,9 +89,9 @@ class Bird(object):
         inputNodes = (
             10000 * (pipes.upper[0]['x'] - self.x),
             10000 * (pipes.upper[0]['y'] - self.y),
-            10000 * (pipes.lower[0]['y'] - self.y),
             10000 * (pipes.upper[1]['x'] - self.x),
             10000 * (pipes.upper[1]['y'] - self.y),
+            10000 * (pipes.lower[0]['y'] - self.y),
             10000 * (pipes.lower[1]['y'] - self.y),
         )
 
