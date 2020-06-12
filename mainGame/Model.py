@@ -44,7 +44,7 @@ def fitness_function(genomes, config):
         genomes.fitness = -1 if fitness == 0 else fitness
         if top_score < score:
             top_score = score
-
+    print("Generation: " + str(generation_number) + " Score: "+ str(top_score))
 
 if __name__ == "__main__":
     main()
