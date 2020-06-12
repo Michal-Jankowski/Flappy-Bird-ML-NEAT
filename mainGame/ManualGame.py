@@ -15,7 +15,7 @@ def play_game(best_generation, pickle_in):
     game = GameAppManager([best_generation], pickle_in, 1)
     generation_number = best_generation.generation
     game.play(generation_number)
-    print_info(game)
+    #print_info(game)
 
 
 def main():

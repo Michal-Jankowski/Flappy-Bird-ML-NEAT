@@ -78,6 +78,8 @@ class GameAppManager(object):
                 self.crash_info.append((bird.crashInfo, bird.genome))
                 del self.birds[index]
                 if len(self.birds) == 0:
+                    if self.manual == 1:
+                        print("Score: " + str(self.score))
                     return True
         break_one = break_two = False
         for bird in self.birds:
