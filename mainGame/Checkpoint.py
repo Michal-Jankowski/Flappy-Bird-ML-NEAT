@@ -16,7 +16,7 @@ def main():
     restore.add_reporter(neat.Checkpointer(5))
 
     # run NEAT based on fitness function and amount of birds
-    winner = restore.run(fitness_function, n=20)
+    winner = restore.run(fitness_function, n=100)
     pickle_out = open("..//NEAT//pickle_file//best.pickle", "wb")
     pickle.dump(winner, pickle_out)
     pickle_out.close()
