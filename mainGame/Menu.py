@@ -4,6 +4,7 @@ import pygame
 from mainGame import Model as train
 from mainGame import BestModel as best
 from mainGame import Checkpoint as checkpoint
+from mainGame import ManualGame as manual
 
 # window size
 pygame.init()
@@ -61,11 +62,12 @@ class Button:
         return False
 
 
-def redrawWindow(train_button, best_button, end_button, checkpoint_button):
+def redrawWindow(train_button, best_button, end_button, checkpoint_button, manual_button):
     train_button.draw(screen, (0, 0, 0))
     best_button.draw(screen, (0, 0, 0))
     end_button.draw(screen, (0, 0, 0))
     checkpoint_button.draw(screen, (0, 0, 0))
+    manual_button.draw(screen, (0, 0, 0))
 
 
 def quitGame():
@@ -78,14 +80,15 @@ def main():
     checkpoint_button = Button((0, 255, 0), 175, 100, 150, 50, "Checkpoint")
     train_button = Button((0, 255, 0), 175, 170, 150, 50, "Train")
     best_button = Button((0, 255, 0), 175, 240, 150, 50, "Best")
-    end_button = Button((0, 255, 0), 175, 310, 150, 50, "Quit")
+    manual_button = Button((0, 255, 0), 175, 310, 150, 50, "Manual")
+    end_button = Button((0, 255, 0), 175, 380, 150, 50, "Quit")
     background = Background("../assets/sprites/background-blue.png", [0, 0])
     logo = Logo("../assets/sprites/flappy_bird_logov1.png", [125, 10])
     while run:
         screen.fill([1, 1, 155])
         screen.blit(background.image, background.rect)
         screen.blit(logo.image, logo.rect)
-        redrawWindow(train_button, best_button, end_button, checkpoint_button)
+        redrawWindow(train_button, best_button, end_button, checkpoint_button, manual_button)
         pygame.display.update()
 
         for event in pygame.event.get():
@@ -98,6 +101,9 @@ def main():
 
                 if best_button.isOver(pos):
                     best.main()
+
+                if manual_button.isOver(pos):
+                    manual.main()
 
                 if end_button.isOver(pos):
                     run = False
@@ -126,6 +132,11 @@ def main():
                     checkpoint_button.color = (255, 0, 0)
                 else:
                     checkpoint_button.color = (255, 255, 255)
+
+                if manual_button.isOver(pos):
+                    manual_button.color = (255, 0, 0)
+                else:
+                    manual_button.color = (255, 255, 255)
 
 
 if __name__ == "__main__":

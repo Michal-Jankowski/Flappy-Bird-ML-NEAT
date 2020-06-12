@@ -7,28 +7,48 @@ from modules.Pipe import Pipe
 from modules.PipeManager import PipeManager
 from modules.Bird import Bird
 from modules.Base import Base
+from modules.ManualBird import ManualBird
 
 
 class GameAppManager(object):
 
-    def __init__(self, genomes, config):
+    def __init__(self, genomes, config, manual = 0):
+        self.manual = manual
+        self.jump = 0
+        if manual == 0:
+            pygame.init()
+            pygame.display.set_caption('BIAI FlappyGame')
+            self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
+            self.fps_clock = pygame.time.Clock()
+            self.score = 0
+            self.crash_info = []
+            self.generation_number = 0
+            # Create player
+            self.movementInfo = load_all_resources()
+            self.birds = [Bird(self.movementInfo, genome, config) for genome in genomes]
 
-        pygame.init()
-        pygame.display.set_caption('BIAI FlappyGame')
-        self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
-        self.fps_clock = pygame.time.Clock()
-        self.score = 0
-        self.crash_info = []
-        self.generation_number = 0
-        # Create player
-        self.movementInfo = load_all_resources()
-        self.birds = [Bird(self.movementInfo, genome, config) for genome in genomes]
+            # Create pipes
+            self.pipes = PipeManager(Pipe(), Pipe())
 
-        # Create pipes
-        self.pipes = PipeManager(Pipe(), Pipe())
+            # Create base
+            self.base = Base(self.movementInfo['basex'])
+        else:
+            pygame.init()
+            pygame.display.set_caption('BIAI FlappyGame')
+            self.screen = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
+            self.fps_clock = pygame.time.Clock()
+            self.score = 0
+            self.crash_info = []
+            self.generation_number = 0
+            # Create player
+            self.movementInfo = load_all_resources()
+            self.birds = [ManualBird(self.movementInfo, genome, config) for genome in genomes]
 
-        # Create base
-        self.base = Base(self.movementInfo['basex'])
+            # Create pipes
+            self.pipes = PipeManager(Pipe(), Pipe())
+
+            # Create base
+            self.base = Base(self.movementInfo['basex'])
 
     def play(self, generation_number):
         self.generation_number = generation_number
@@ -37,16 +57,21 @@ class GameAppManager(object):
                 if event.type == QUIT:
                     pygame.quit()
                     sys.exit()
-
-            if self.on_loop():
+                if event.type == MOUSEBUTTONDOWN:
+                    self.jump = 1;
+            if self.on_loop(self.manual):
                 return
             else:
                 self.on_render()
 
-    def on_loop(self):
+    def on_loop(self, manual = 0):
         # neural control of bird move, get value for move
         for bird in self.birds:
-            bird.flap_bird(self.pipes)
+            if manual != 0:
+                bird.flap_bird(self.pipes, self.jump)
+                self.jump = 0
+            else:
+                bird.flap_bird(self.pipes)
 
         for index, bird in enumerate(self.birds):
             if bird.check_crash(self.pipes, self.base.base_x, self.score):
@@ -88,10 +113,11 @@ class GameAppManager(object):
         # draw birds
         for bird in self.birds:
             self.screen.blit(IMAGES['player'][bird.index], (bird.x, bird.y))
-        # display bird generation
-        display_game_information(self.generation_number, self.screen, text="generation")
-        # display alive birds
-        display_game_information(len(self.birds), self.screen, text="alive")
+        if self.manual == 0:
+            # display bird generation
+            display_game_information(self.generation_number, self.screen, text="generation")
+            # display alive birds
+            display_game_information(len(self.birds), self.screen, text="alive")
         # display score
         display_game_information(self.score, self.screen, text="score")
         for bird in self.birds:
